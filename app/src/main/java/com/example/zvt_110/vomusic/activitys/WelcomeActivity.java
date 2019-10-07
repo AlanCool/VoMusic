@@ -26,13 +26,20 @@ public class WelcomeActivity extends BaseActivity {
         mTime.schedule(new TimerTask() {
             @Override
             public void run() {
-                toMian();
+                //toMian();
+                toLoginActivity();
             }
         }, 3 * 1000);
     }
 
     private void toMian() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
