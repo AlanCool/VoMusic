@@ -3,4 +3,6 @@
 
     <color name="colorPrimaryDark">#D43433</color>
     <color name="maincolor">#D43433</color>
+    <color name="linecolor">#c3c3c3</color>
+    <color name="mainColorH">#C80F1F</color>
 </resources>
