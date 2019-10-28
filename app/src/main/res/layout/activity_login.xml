@@ -16,6 +16,7 @@
         android:src="@mipmap/icon1" />
 
     <com.example.zvt_110.vomusic.views.InputView
+        android:id="@+id/input_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         android:layout_marginTop="@dimen/marginSize"
@@ -26,6 +27,7 @@
     <View style="@style/line"></View>
 
     <com.example.zvt_110.vomusic.views.InputView
+        android:id="@+id/inout_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         android:layout_marginTop="@dimen/marginSize"
@@ -50,6 +52,7 @@
        style="@style/commitBtn"
         android:text="登 录"
         android:layout_marginTop="@dimen/marginSize"
+        android:onClick="onCommitClick"
         />
 
 </LinearLayout>
