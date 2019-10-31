@@ -3,7 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/maincolor</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <!--新进入的Activity执行动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/open_enter</item>
+        <!--原的Activity执行动画-->
+        <item name="android:activityOpenExitAnimation">@anim/open_exit</item>
+        <!--退出的Activity执行动画-->
+        <item name="android:activityCloseExitAnimation">@anim/close_exit</item>
+        <!--退出进入上一级Activity执行动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/close_enter</item>
     </style>
 
     <style name="line">

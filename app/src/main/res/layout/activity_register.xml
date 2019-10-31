@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activitys.LoginActivity">
+    tools:context=".activitys.RegisterActivity">
 
     <include layout="@layout/nav_item" />
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         android:layout_marginTop="@dimen/marginSize"
-        app:input_hint="手机号"
+        app:input_hint="请输入手机号"
         app:input_icon="@mipmap/phone"
         app:is_password="false"></com.example.zvt_110.vomusic.views.InputView>
 
@@ -30,28 +30,29 @@
         android:id="@+id/inout_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
-        app:input_hint="密码"
+        app:input_hint="请输入密码"
         app:input_icon="@mipmap/password"
         app:is_password="true"></com.example.zvt_110.vomusic.views.InputView>
 
     <View style="@style/line"></View>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="立即注册"
-        android:textColor="@color/maincolor"
-        android:textSize="@dimen/infoSize"
-        android:padding="@dimen/marginSize"
-        android:onClick="onRegistersClick"
-        />
+    <com.example.zvt_110.vomusic.views.InputView
+        android:id="@+id/inout_password_comfirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/inputViewHeight"
+        app:input_hint="请确认密码"
+        app:input_icon="@mipmap/password"
+        app:is_password="true"></com.example.zvt_110.vomusic.views.InputView>
+
+    <View style="@style/line"></View>
+
+
 
     <Button
-       style="@style/commitBtn"
-        android:text="登 录"
+        style="@style/commitBtn"
+        android:text="注  册"
         android:layout_marginTop="@dimen/marginSize"
-        android:onClick="onCommitClick"
+        android:onClick="onRegisterClick"
         />
 
 </LinearLayout>

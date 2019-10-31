@@ -25,6 +25,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void onRegistersClick(View view) {
+        Intent intent=new Intent(this,RegisterActivity.class);
+        startActivity(intent);
     }
 
     public void onCommitClick(View view) {
