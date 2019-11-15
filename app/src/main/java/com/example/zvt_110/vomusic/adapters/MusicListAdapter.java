@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.zvt_110.vomusic.R;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             setRecyclerViewHeight();
+        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573800274933&di=d38349fee8da86d4c9b4c10978cfdc53&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01d00c58fd8378a8012160f72a806d.jpg%401280w_1l_2o_100sh.jpg").into(viewHolder.ivIcon);
     }
 
     @Override
