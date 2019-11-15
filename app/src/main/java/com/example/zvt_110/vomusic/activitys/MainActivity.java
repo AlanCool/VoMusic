@@ -1,16 +1,18 @@
 package com.example.zvt_110.vomusic.activitys;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 
 import com.example.zvt_110.vomusic.R;
-import com.example.zvt_110.vomusic.activitys.BaseActivity;
+
 import com.example.zvt_110.vomusic.adapters.MusicGridAdapter;
 import com.example.zvt_110.vomusic.adapters.MusicListAdapter;
 import com.example.zvt_110.vomusic.views.GridSpaceItemDecoration;
+
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends BaseActivity {
 

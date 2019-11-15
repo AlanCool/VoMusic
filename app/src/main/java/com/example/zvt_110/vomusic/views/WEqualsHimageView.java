@@ -1,8 +1,10 @@
 package com.example.zvt_110.vomusic.views;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
+
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 public class WEqualsHimageView extends AppCompatImageView {
     public WEqualsHimageView(Context context) {

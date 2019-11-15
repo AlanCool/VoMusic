@@ -1,10 +1,11 @@
 package com.example.zvt_110.vomusic.views;
 
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
 

@@ -2,14 +2,16 @@ package com.example.zvt_110.vomusic.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.IdRes;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zvt_110.vomusic.R;
+
+import androidx.annotation.IdRes;
 
 public class BaseActivity extends Activity {
 
