@@ -16,7 +16,7 @@
         android:src="@mipmap/icon1" />
 
     <com.example.zvt_110.vomusic.views.InputView
-        android:id="@+id/input_phone"
+        android:id="@+id/input_registerphone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         android:layout_marginTop="@dimen/marginSize"
@@ -27,7 +27,7 @@
     <View style="@style/line"></View>
 
     <com.example.zvt_110.vomusic.views.InputView
-        android:id="@+id/inout_password"
+        android:id="@+id/input_registerpassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         app:input_hint="请输入密码"
@@ -37,7 +37,7 @@
     <View style="@style/line"></View>
 
     <com.example.zvt_110.vomusic.views.InputView
-        android:id="@+id/inout_password_comfirm"
+        android:id="@+id/input_registerpassword_comfirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         app:input_hint="请确认密码"
