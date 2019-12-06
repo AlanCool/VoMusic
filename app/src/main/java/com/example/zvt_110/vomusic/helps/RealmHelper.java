@@ -35,5 +35,17 @@ public class RealmHelper {
         return results;
     }
 
+    public boolean validateUser(String phone,String password){
+        boolean result=false;
+        RealmQuery<UserModel> queryResult=mRealm.where(UserModel.class);
+        queryResult=queryResult.equalTo("phone",phone).equalTo("password",password);
+        UserModel userModel=queryResult.findFirst();
+        if (userModel!=null){
+           result=true;
+        }
+        return result;
+
+    }
+
 
 }

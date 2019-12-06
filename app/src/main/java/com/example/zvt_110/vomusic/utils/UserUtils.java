@@ -28,6 +28,19 @@ public class UserUtils {
             return false;
         }
 
+        if(!UserUtils.userExistFromPhone(phone)){
+            Toast.makeText(context, "此用户未注册", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        RealmHelper realmHelper=new RealmHelper();
+        boolean result =realmHelper.validateUser(phone,password);
+        realmHelper.close();
+        if (!result){
+            Toast.makeText(context, "密码或用户名不正确", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
         return true;
     }
 
@@ -79,6 +92,7 @@ public class UserUtils {
                 break;
             }
         }
+        realmHelper.close();
         return result;
     }
 
