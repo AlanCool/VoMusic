@@ -53,6 +53,12 @@ public class UserUtils {
     }
 
     public static void logout(Context context) {
+        boolean isRemove=SPUtils.removeUser(context);
+        if (isRemove==false){
+            Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
