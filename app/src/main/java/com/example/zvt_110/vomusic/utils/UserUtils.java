@@ -35,7 +35,7 @@ public class UserUtils {
         }
 
         RealmHelper realmHelper = new RealmHelper();
-        boolean result = realmHelper.validateUser(phone, password);
+        boolean result = realmHelper.validateUser(phone, EncryptUtils.encryptMD5ToString(password));
         realmHelper.close();
         if (!result) {
             Toast.makeText(context, "密码或用户名不正确", Toast.LENGTH_SHORT).show();
