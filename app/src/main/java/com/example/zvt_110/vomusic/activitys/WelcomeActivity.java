@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.zvt_110.vomusic.R;
+import com.example.zvt_110.vomusic.utils.UserUtils;
 
 import java.sql.Time;
 import java.util.Timer;
@@ -22,12 +23,16 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void init() {
+        final boolean isLogin= UserUtils.validateUserLogin(this);
         mTime = new Timer();
         mTime.schedule(new TimerTask() {
             @Override
             public void run() {
-                //toMian();
-                toLoginActivity();
+                if (isLogin){
+                    toMian();
+                }else {
+                    toLoginActivity();
+                }
             }
         }, 3 * 1000);
     }

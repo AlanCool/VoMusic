@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.example.zvt_110.vomusic.R;
 import com.example.zvt_110.vomusic.activitys.LoginActivity;
 import com.example.zvt_110.vomusic.helps.RealmHelper;
+import com.example.zvt_110.vomusic.helps.UserHelper;
 import com.example.zvt_110.vomusic.model.UserModel;
 
 import java.util.List;
@@ -28,19 +29,26 @@ public class UserUtils {
             return false;
         }
 
-        if(!UserUtils.userExistFromPhone(phone)){
+        if (!UserUtils.userExistFromPhone(phone)) {
             Toast.makeText(context, "此用户未注册", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        RealmHelper realmHelper=new RealmHelper();
-        boolean result =realmHelper.validateUser(phone,password);
+        RealmHelper realmHelper = new RealmHelper();
+        boolean result = realmHelper.validateUser(phone, password);
         realmHelper.close();
-        if (!result){
+        if (!result) {
             Toast.makeText(context, "密码或用户名不正确", Toast.LENGTH_SHORT).show();
             return false;
 
         }
+        boolean isSave = SPUtils.spSaveUser(context, phone);
+        if (!isSave) {
+            Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        UserHelper.getInstance().setPhone(phone);
         return true;
     }
 
@@ -63,7 +71,7 @@ public class UserUtils {
             return false;
         }
 
-        if (UserUtils.userExistFromPhone(phone)){
+        if (UserUtils.userExistFromPhone(phone)) {
             Toast.makeText(context, "号码已存在", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -94,6 +102,10 @@ public class UserUtils {
         }
         realmHelper.close();
         return result;
+    }
+
+    public static boolean validateUserLogin(Context context) {
+        return SPUtils.isLoginUser(context);
     }
 
 }
