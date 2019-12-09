@@ -20,6 +20,7 @@ import java.util.List;
 public class UserUtils {
     public static boolean validateLogin(Context context, String phone, String password) {
 
+
         if (!RegexUtils.isMobileExact(phone)) {
             Toast.makeText(context, "无效手机号", Toast.LENGTH_SHORT).show();
             return false;
@@ -53,8 +54,8 @@ public class UserUtils {
     }
 
     public static void logout(Context context) {
-        boolean isRemove=SPUtils.removeUser(context);
-        if (isRemove==false){
+        boolean isRemove = SPUtils.removeUser(context);
+        if (isRemove == false) {
             Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -112,6 +113,31 @@ public class UserUtils {
 
     public static boolean validateUserLogin(Context context) {
         return SPUtils.isLoginUser(context);
+    }
+
+    public static boolean changePassword(Context context, String oldPassword, String mNewPassword, String mNewPassword_confirm) {
+        if (TextUtils.isEmpty(oldPassword)) {
+            Toast.makeText(context, "请输入原密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mNewPassword)  || !mNewPassword.equals(mNewPassword_confirm)) {
+            Toast.makeText(context, "请确认新密码是否匹配", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        RealmHelper realmHelper = new RealmHelper();
+        UserModel userModel = realmHelper.getUser();
+        if (!EncryptUtils.encryptMD5ToString(oldPassword).equals(userModel.getPassword())) {
+            Toast.makeText(context, "与原密码吗不匹配", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        realmHelper.changePassword(EncryptUtils.encryptMD5ToString(mNewPassword));
+
+        realmHelper.close();
+        return true;
+
     }
 
 }

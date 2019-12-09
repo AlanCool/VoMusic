@@ -17,8 +17,8 @@ public class RealmHelper {
 
     }
 
-    public void close(){
-        if (mRealm!=null && !mRealm.isClosed()){
+    public void close() {
+        if (mRealm != null && !mRealm.isClosed()) {
             mRealm.close();
         }
     }
@@ -29,22 +29,35 @@ public class RealmHelper {
         mRealm.commitTransaction();
     }
 
-    public List<UserModel> getAllUser(){
-        RealmQuery<UserModel> query=mRealm.where(UserModel.class);
-        RealmResults<UserModel> results=query.findAll();
+    public List<UserModel> getAllUser() {
+        RealmQuery<UserModel> query = mRealm.where(UserModel.class);
+        RealmResults<UserModel> results = query.findAll();
         return results;
     }
 
-    public boolean validateUser(String phone,String password){
-        boolean result=false;
-        RealmQuery<UserModel> queryResult=mRealm.where(UserModel.class);
-        queryResult=queryResult.equalTo("phone",phone).equalTo("password",password);
-        UserModel userModel=queryResult.findFirst();
-        if (userModel!=null){
-           result=true;
+    public boolean validateUser(String phone, String password) {
+        boolean result = false;
+        RealmQuery<UserModel> queryResult = mRealm.where(UserModel.class);
+        queryResult = queryResult.equalTo("phone", phone).equalTo("password", password);
+        UserModel userModel = queryResult.findFirst();
+        if (userModel != null) {
+            result = true;
         }
         return result;
 
+    }
+
+    public UserModel getUser() {
+        RealmQuery<UserModel> query = mRealm.where(UserModel.class);
+        UserModel userModel = query.equalTo("phone", UserHelper.getInstance().getPhone()).findFirst();
+        return userModel;
+    }
+
+    public void changePassword(String password) {
+        UserModel userModel = getUser();
+        mRealm.beginTransaction();
+        userModel.setPassword(password);
+        mRealm.commitTransaction();
     }
 
 
