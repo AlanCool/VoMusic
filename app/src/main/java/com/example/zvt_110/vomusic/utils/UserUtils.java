@@ -50,6 +50,9 @@ public class UserUtils {
         }
 
         UserHelper.getInstance().setPhone(phone);
+
+        realmHelper.setMusicSource(context);
+        realmHelper.close();
         return true;
     }
 
@@ -59,6 +62,10 @@ public class UserUtils {
             Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        RealmHelper realmHelper = new RealmHelper();
+        realmHelper.removeMusicSource();
+        realmHelper.close();
 
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,7 +128,7 @@ public class UserUtils {
             return false;
         }
 
-        if (TextUtils.isEmpty(mNewPassword)  || !mNewPassword.equals(mNewPassword_confirm)) {
+        if (TextUtils.isEmpty(mNewPassword) || !mNewPassword.equals(mNewPassword_confirm)) {
             Toast.makeText(context, "请确认新密码是否匹配", Toast.LENGTH_SHORT).show();
             return false;
         }

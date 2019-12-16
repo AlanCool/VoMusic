@@ -1,8 +1,9 @@
 package com.example.zvt_110.vomusic.model;
 
 import io.realm.RealmList;
+import io.realm.RealmObject;
 
-public class MusicSourceModel {
+public class MusicSourceModel extends RealmObject {
 
     private RealmList<AlbumModel> album;
     private RealmList<MusicModel> hot;

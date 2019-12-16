@@ -1,8 +1,14 @@
 package com.example.zvt_110.vomusic.helps;
 
+import android.content.Context;
+
+import com.example.zvt_110.vomusic.model.MusicSourceModel;
 import com.example.zvt_110.vomusic.model.UserModel;
+import com.example.zvt_110.vomusic.utils.DataUtils;
 
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -60,5 +66,18 @@ public class RealmHelper {
         mRealm.commitTransaction();
     }
 
+
+    public void setMusicSource(Context context) {
+        String musicSourceJason = DataUtils.getJsonFromAssets(context, "DataSource.jason");
+        mRealm.beginTransaction();
+        mRealm.createObjectFromJson(MusicSourceModel.class, musicSourceJason);
+        mRealm.commitTransaction();
+    }
+
+    public void removeMusicSource() {
+        mRealm.beginTransaction();
+        mRealm.delete(MusicSourceModel.class);
+        mRealm.commitTransaction();
+    }
 
 }
