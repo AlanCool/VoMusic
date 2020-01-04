@@ -2,26 +2,47 @@ package com.example.zvt_110.vomusic.helps;
 
 import android.content.Context;
 
+import com.example.zvt_110.vomusic.migration.Migration;
 import com.example.zvt_110.vomusic.model.MusicSourceModel;
 import com.example.zvt_110.vomusic.model.UserModel;
 import com.example.zvt_110.vomusic.utils.DataUtils;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.internal.Util;
 
 public class RealmHelper {
 
     private Realm mRealm;
 
     public RealmHelper() {
-        mRealm = Realm.getDefaultInstance();
-
+            mRealm = Realm.getDefaultInstance();
     }
+
+    public static void migration() {
+        RealmConfiguration conf = getRealmConf();
+        Realm.setDefaultConfiguration(conf);
+        try {
+            Realm.migrateRealm(conf);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static RealmConfiguration getRealmConf() {
+        return new RealmConfiguration.Builder()
+                .schemaVersion(1)
+                .migration(new Migration())
+                .build();
+    }
+
 
     public void close() {
         if (mRealm != null && !mRealm.isClosed()) {
@@ -29,7 +50,7 @@ public class RealmHelper {
         }
     }
 
-    public void saveUser(UserModel userModel) {
+    public void saveUser(final UserModel userModel) {
         mRealm.beginTransaction();
         mRealm.insert(userModel);
         mRealm.commitTransaction();
@@ -68,7 +89,7 @@ public class RealmHelper {
 
 
     public void setMusicSource(Context context) {
-        String musicSourceJason = DataUtils.getJsonFromAssets(context, "DataSource.jason");
+        String musicSourceJason = DataUtils.getJsonFromAssets(context, "DataSource.json");
         mRealm.beginTransaction();
         mRealm.createObjectFromJson(MusicSourceModel.class, musicSourceJason);
         mRealm.commitTransaction();

@@ -37,7 +37,6 @@ public class UserUtils {
 
         RealmHelper realmHelper = new RealmHelper();
         boolean result = realmHelper.validateUser(phone, EncryptUtils.encryptMD5ToString(password));
-        realmHelper.close();
         if (!result) {
             Toast.makeText(context, "密码或用户名不正确", Toast.LENGTH_SHORT).show();
             return false;
@@ -58,7 +57,7 @@ public class UserUtils {
 
     public static void logout(Context context) {
         boolean isRemove = SPUtils.removeUser(context);
-        if (isRemove == false) {
+        if (!isRemove ) {
             Toast.makeText(context, "系统错误，请稍后重试", Toast.LENGTH_SHORT).show();
             return;
         }

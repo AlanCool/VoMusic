@@ -6,7 +6,7 @@ import io.realm.RealmObject;
 public class AlbumModel extends RealmObject {
 
     /*
-    *  "albumId": "1",
+    "albumId": "1",
       "name": "Nostalgic",
       "poster": "http://res.lgdsunday.club/poster-9.png",
       "playNum": "203.3万",

@@ -3,6 +3,7 @@ package com.example.zvt_110.vomusic;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.example.zvt_110.vomusic.helps.RealmHelper;
 
 import io.realm.Realm;
 
@@ -12,5 +13,7 @@ public class MyApplication  extends Application {
         super.onCreate();
         Utils.init(this);
         Realm.init(this);
+
+        RealmHelper.migration();
     }
 }

@@ -1,7 +1,9 @@
 package com.example.zvt_110.vomusic.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.text.format.Formatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +13,9 @@ import java.io.InputStreamReader;
 public class DataUtils {
 
     public static String getJsonFromAssets(Context context, String fileName) {
+        ActivityManager.MemoryInfo systemMemInfo = new ActivityManager.MemoryInfo();
+        ActivityManager am=(ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+
         //字符存储器
         StringBuilder stringBuilder = new StringBuilder();
         //Asset资源管理器
@@ -34,4 +39,6 @@ public class DataUtils {
 
         return stringBuilder.toString();
     }
+
+
 }
