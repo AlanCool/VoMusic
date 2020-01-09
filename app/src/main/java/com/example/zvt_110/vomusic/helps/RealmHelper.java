@@ -23,7 +23,7 @@ public class RealmHelper {
     private Realm mRealm;
 
     public RealmHelper() {
-            mRealm = Realm.getDefaultInstance();
+        mRealm = Realm.getDefaultInstance();
     }
 
     public static void migration() {
@@ -99,6 +99,11 @@ public class RealmHelper {
         mRealm.beginTransaction();
         mRealm.delete(MusicSourceModel.class);
         mRealm.commitTransaction();
+    }
+
+
+    public MusicSourceModel getMusicSource() {
+        return mRealm.where(MusicSourceModel.class).findFirst();
     }
 
 }

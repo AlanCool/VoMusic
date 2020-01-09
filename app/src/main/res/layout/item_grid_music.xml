@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <com.example.zvt_110.vomusic.views.WEqualsHimageView
+            android:id="@+id/iv_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -31,6 +32,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_play_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10.00万"
@@ -46,6 +48,7 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="歌单名称"
