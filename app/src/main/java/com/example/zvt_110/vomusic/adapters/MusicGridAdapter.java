@@ -26,6 +26,7 @@ public class MusicGridAdapter extends RecyclerView.Adapter<MusicGridAdapter.View
     private Context mContext;
     private List<AlbumModel> mDataSource;
 
+
     public MusicGridAdapter(Context context, List<AlbumModel> dataSource) {
         mContext = context;
         this.mDataSource = dataSource;
@@ -52,6 +53,7 @@ public class MusicGridAdapter extends RecyclerView.Adapter<MusicGridAdapter.View
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AlbumListActivity.class);
+                intent.putExtra(AlbumListActivity.ALBUM_ID,albumModel.getAlbumId());
                 mContext.startActivity(intent);
             }
         });

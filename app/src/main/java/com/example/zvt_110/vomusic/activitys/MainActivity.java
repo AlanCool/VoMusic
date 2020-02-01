@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
         mRvList.setLayoutManager(new LinearLayoutManager(this));
         mRvList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRvList.setNestedScrollingEnabled(false);
-        musicListAdapter = new MusicListAdapter(this, mRvList);
+        musicListAdapter = new MusicListAdapter(this, mRvList,musicSourceModel.getHot());
         mRvList.setAdapter(musicListAdapter);
 
     }

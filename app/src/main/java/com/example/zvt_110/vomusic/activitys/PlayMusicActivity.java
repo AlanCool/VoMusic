@@ -10,18 +10,26 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.zvt_110.vomusic.R;
 import com.example.zvt_110.vomusic.helps.MediaPlayHelp;
+import com.example.zvt_110.vomusic.helps.RealmHelper;
+import com.example.zvt_110.vomusic.model.MusicModel;
 import com.example.zvt_110.vomusic.views.PlayMusicView;
 
 public class PlayMusicActivity extends BaseActivity {
     private ImageView mIvbg;
     private PlayMusicView mPlayMusicView;
 
+    public static final String MUSIC_ID = "musicId";
 
+    private String musicId;
+    private RealmHelper realmHelper;
+    private MusicModel musicModel;
+    private TextView tv_name, tv_author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +37,34 @@ public class PlayMusicActivity extends BaseActivity {
         setContentView(R.layout.activity_play_music);
         //界面全屏显示
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        initData();
         initView();
+
+    }
+
+    private void initData() {
+        musicId = getIntent().getStringExtra(MUSIC_ID);
+        realmHelper = new RealmHelper();
+        musicModel = realmHelper.getMusic(musicId);
 
     }
 
     private void initView() {
 
         mIvbg = fd(R.id.mIvbg);
-        Glide.with(this).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574178173426&di=69017d211f5165af608cbab5a28ccab2&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D645549606%2C1881985083%26fm%3D214%26gp%3D0.jpg")
+        tv_name = fd(R.id.tv_name);
+        tv_author = fd(R.id.tv_author);
+        Glide.with(this).load(musicModel.getPoster())
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 10))).into(mIvbg);
 
-        mPlayMusicView=findViewById(R.id.playMusicView);
-        mPlayMusicView.playMusic("");
+        tv_name.setText(musicModel.getName());
+        tv_author.setText(musicModel.getAuthor());
+
+
+        mPlayMusicView = findViewById(R.id.playMusicView);
+        mPlayMusicView.setMusic(musicModel);
+       // mPlayMusicView.setMusicIcon();
+        mPlayMusicView.playMusic(musicModel.getPath());
 
 
     }
@@ -48,5 +72,11 @@ public class PlayMusicActivity extends BaseActivity {
 
     public void onBackClick(View view) {
         onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realmHelper.close();
     }
 }

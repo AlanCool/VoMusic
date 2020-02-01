@@ -3,6 +3,8 @@ package com.example.zvt_110.vomusic.helps;
 import android.content.Context;
 
 import com.example.zvt_110.vomusic.migration.Migration;
+import com.example.zvt_110.vomusic.model.AlbumModel;
+import com.example.zvt_110.vomusic.model.MusicModel;
 import com.example.zvt_110.vomusic.model.MusicSourceModel;
 import com.example.zvt_110.vomusic.model.UserModel;
 import com.example.zvt_110.vomusic.utils.DataUtils;
@@ -104,6 +106,14 @@ public class RealmHelper {
 
     public MusicSourceModel getMusicSource() {
         return mRealm.where(MusicSourceModel.class).findFirst();
+    }
+
+    public AlbumModel getAlbum(String albumId) {
+        return mRealm.where(AlbumModel.class).equalTo("albumId", albumId).findFirst();
+    }
+
+    public MusicModel getMusic(String musicId) {
+        return mRealm.where(MusicModel.class).equalTo("musicId", musicId).findFirst();
     }
 
 }

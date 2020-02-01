@@ -11,8 +11,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.zvt_110.vomusic.R;
 import com.example.zvt_110.vomusic.helps.MediaPlayHelp;
+import com.example.zvt_110.vomusic.model.MusicModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +30,8 @@ public class PlayMusicView extends FrameLayout {
     private boolean isPlaying;
     private MediaPlayHelp mediaPlayHelp;
     private String mPath;
+    private ImageView mIvcon, mIvNeedle, mIvPlay;
+    private MusicModel musicModel;
 
     public PlayMusicView(@NonNull Context context) {
         super(context);
@@ -60,12 +64,13 @@ public class PlayMusicView extends FrameLayout {
                 trigger();
             }
         });
+        mIvcon = findViewById(R.id.civ_icon);
         iv_needle = playMusicView.findViewById(R.id.iv_needle);
         iv_play = playMusicView.findViewById(R.id.iv_play);
         playMusicAnim = AnimationUtils.loadAnimation(mContext, R.anim.play_music_anim);
         playNeedleAnim = AnimationUtils.loadAnimation(mContext, R.anim.play_needle_anim);
         stopNeedleAnim = AnimationUtils.loadAnimation(mContext, R.anim.stop_needle_anim);
-        playMusic(mPath);
+        //playMusic("http://res.lgdsunday.club/Nostalgic%20Piano.mp3");
 
         addView(playMusicView);
 
@@ -73,7 +78,7 @@ public class PlayMusicView extends FrameLayout {
     }
 
     public void playMusic(String path) {
-        mPath=path;
+        mPath = path;
         isPlaying = true;
         flPlayMusic.setAnimation(playMusicAnim);
         iv_needle.setAnimation(playNeedleAnim);
@@ -110,6 +115,14 @@ public class PlayMusicView extends FrameLayout {
         } else {
             playMusic(mPath);
         }
+    }
+
+    public void setMusicIcon(){
+        Glide.with(mContext).load(musicModel.getPoster()).into(mIvcon);
+    }
+
+    public void setMusic(MusicModel musicModel) {
+        this.musicModel = musicModel;
     }
 
 }
