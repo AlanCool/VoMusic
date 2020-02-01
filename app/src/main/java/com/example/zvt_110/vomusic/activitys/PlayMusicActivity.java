@@ -64,7 +64,7 @@ public class PlayMusicActivity extends BaseActivity {
         mPlayMusicView = findViewById(R.id.playMusicView);
         mPlayMusicView.setMusic(musicModel);
        // mPlayMusicView.setMusicIcon();
-        mPlayMusicView.playMusic(musicModel.getPath());
+        mPlayMusicView.playMusic();
 
 
     }
@@ -77,6 +77,7 @@ public class PlayMusicActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPlayMusicView.destory();
         realmHelper.close();
     }
 }

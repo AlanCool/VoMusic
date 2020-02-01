@@ -1,8 +1,12 @@
 package com.example.zvt_110.vomusic.views;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.IBinder;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,9 @@ import com.bumptech.glide.Glide;
 import com.example.zvt_110.vomusic.R;
 import com.example.zvt_110.vomusic.helps.MediaPlayHelp;
 import com.example.zvt_110.vomusic.model.MusicModel;
+import com.example.zvt_110.vomusic.services.MusicService;
+
+import java.security.PublicKey;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,11 +34,11 @@ public class PlayMusicView extends FrameLayout {
     private Animation playMusicAnim, playNeedleAnim, stopNeedleAnim;
     private FrameLayout flPlayMusic;
     private ImageView iv_needle, iv_play;
-    private boolean isPlaying;
-    private MediaPlayHelp mediaPlayHelp;
-    private String mPath;
+    private boolean isPlaying, isBindService;
+    private Intent mServiceIntent;
     private ImageView mIvcon, mIvNeedle, mIvPlay;
     private MusicModel musicModel;
+    private MusicService.MusicBinder mMusicBind;
 
     public PlayMusicView(@NonNull Context context) {
         super(context);
@@ -74,29 +81,16 @@ public class PlayMusicView extends FrameLayout {
 
         addView(playMusicView);
 
-        mediaPlayHelp = MediaPlayHelp.getInstance(mContext);
+
     }
 
-    public void playMusic(String path) {
-        mPath = path;
+    public void playMusic() {
         isPlaying = true;
         flPlayMusic.setAnimation(playMusicAnim);
         iv_needle.setAnimation(playNeedleAnim);
         iv_play.setVisibility(View.GONE);
 
-        if (mediaPlayHelp.getpath() != null
-                && mediaPlayHelp.getpath().equals(path)
-        ) {
-            mediaPlayHelp.start();
-        } else {
-            mediaPlayHelp.setPath(path);
-            mediaPlayHelp.setOnMediaPlayerHelperListener(new MediaPlayHelp.onMediaPlayerHelperListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayHelp.start();
-                }
-            });
-        }
+        startMusicService();
 
     }
 
@@ -105,24 +99,60 @@ public class PlayMusicView extends FrameLayout {
         flPlayMusic.clearAnimation();
         iv_needle.setAnimation(stopNeedleAnim);
         iv_play.setVisibility(View.VISIBLE);
+        mMusicBind.stopMusic();
 
-        mediaPlayHelp.pause();
+
     }
 
     public void trigger() {
         if (isPlaying) {
             stopMusic();
         } else {
-            playMusic(mPath);
+            playMusic();
         }
     }
 
-    public void setMusicIcon(){
+    public void setMusicIcon() {
         Glide.with(mContext).load(musicModel.getPoster()).into(mIvcon);
     }
 
+
     public void setMusic(MusicModel musicModel) {
         this.musicModel = musicModel;
+        setMusicIcon();
     }
+
+    private void startMusicService() {
+        if (mServiceIntent == null) {
+            mServiceIntent = new Intent(mContext, MusicService.class);
+            mContext.startService(mServiceIntent);
+        }
+
+        if (!isBindService) {
+            isBindService = true;
+            mContext.bindService(mServiceIntent, conn, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    public void destory() {
+        if (isBindService) {
+            isBindService = false;
+            mContext.unbindService(conn);
+        }
+    }
+
+    ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mMusicBind = (MusicService.MusicBinder) service;
+            mMusicBind.setMusic(musicModel);
+            mMusicBind.playMusic();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
 }
