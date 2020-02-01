@@ -42,10 +42,10 @@ public class MediaPlayHelp {
         3 准备播放设置
          */
 
-        if (mediaPlayer.isPlaying()) {
+        if (mediaPlayer.isPlaying() || !path.equals(mPath)) {
             mediaPlayer.reset();
         }
-
+        mPath = path;
         try {
             mediaPlayer.setDataSource(mContext, Uri.parse(path));
         } catch (IOException e) {
@@ -61,10 +61,10 @@ public class MediaPlayHelp {
                 }
             }
         });
-        mPath=path;
+
     }
 
-    public String getpath(){
+    public String getpath() {
         return mPath;
     }
 
