@@ -34,6 +34,11 @@ public class MusicService extends Service {
                     public void onPrepared(MediaPlayer mp) {
                         mMediaPlayHelp.start();
                     }
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        stopSelf();
+                    }
                 });
             }
         }

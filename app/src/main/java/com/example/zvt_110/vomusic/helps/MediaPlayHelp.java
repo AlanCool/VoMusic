@@ -62,6 +62,15 @@ public class MediaPlayHelp {
             }
         });
 
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if (onMediaPlayerHelperListener != null) {
+                    onMediaPlayerHelperListener.onCompletion(mp);
+                }
+            }
+        });
+
     }
 
     public String getpath() {
@@ -79,5 +88,6 @@ public class MediaPlayHelp {
 
     public interface onMediaPlayerHelperListener {
         void onPrepared(MediaPlayer mp);
+        void onCompletion(MediaPlayer mp);
     }
 }

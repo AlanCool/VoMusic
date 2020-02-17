@@ -71,7 +71,7 @@ public class PlayMusicView extends FrameLayout {
                 trigger();
             }
         });
-        mIvcon = findViewById(R.id.civ_icon);
+        mIvcon = playMusicView.findViewById(R.id.civ_icon);
         iv_needle = playMusicView.findViewById(R.id.iv_needle);
         iv_play = playMusicView.findViewById(R.id.iv_play);
         playMusicAnim = AnimationUtils.loadAnimation(mContext, R.anim.play_music_anim);
