@@ -99,7 +99,8 @@ public class PlayMusicView extends FrameLayout {
         flPlayMusic.clearAnimation();
         iv_needle.setAnimation(stopNeedleAnim);
         iv_play.setVisibility(View.VISIBLE);
-        mMusicBind.stopMusic();
+        if (mMusicBind != null)
+            mMusicBind.stopMusic();
 
 
     }
@@ -126,6 +127,8 @@ public class PlayMusicView extends FrameLayout {
         if (mServiceIntent == null) {
             mServiceIntent = new Intent(mContext, MusicService.class);
             mContext.startService(mServiceIntent);
+        } else {
+            mMusicBind.playMusic();
         }
 
         if (!isBindService) {
